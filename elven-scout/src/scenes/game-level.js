@@ -24,6 +24,8 @@ export class GameLevel extends Scene {
 
     init() {
         super.init()
+        const mapData = require('../maps/level_1.json');
+        this.map = this.game.screen.createMap("level_1", mapData, this.tiles);
     }
 
     update(time) {
@@ -33,7 +35,8 @@ export class GameLevel extends Scene {
     render(time) {
         this.update(time);
         this.game.screen.fill('#0000000');
-        this.game.screen.drawSprite(this.floor);
+        this.game.screen.drawSprite(this.map);
+        //this.game.screen.drawSprite(this.floor);
         this.game.screen.drawSprite(this.bull);
         super.render(time);
     }
