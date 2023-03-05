@@ -1,5 +1,6 @@
 import { Scene } from "../scene";
 import { SpriteSheet } from "../sprite-sheet";
+import { CharacterSheet } from "../character-sheet";
 
 export class GameLevel extends Scene {
     constructor(game){
@@ -12,14 +13,11 @@ export class GameLevel extends Scene {
         this.floor = this.tiles.getSprite(7);
         this.floor.setXY(10, 10);
 
-        // enemy animation
-        this.bullTiles = new SpriteSheet({
-            imageName: 'enemy',
-            imageWidth: 800,
-            imageHeight: 800
-        });
-        this.bull = this.bullTiles.getAnimation([1,2,3,4,5,6,7], 300);
-        this.bull.setXY(10, 10);
+        // hero animation
+        this.heroTiles = new CharacterSheet({imageName: 'player'});
+        this.hero = this.heroTiles.getAnimation("walk_down");
+        this.hero.setXY(390, 90);
+        
     }
 
     init() {
@@ -29,7 +27,7 @@ export class GameLevel extends Scene {
     }
 
     update(time) {
-        this.bull.update(time);
+        this.hero.update(time);
     }
 
     render(time) {
@@ -37,7 +35,7 @@ export class GameLevel extends Scene {
         this.game.screen.fill('#0000000');
         this.game.screen.drawSprite(this.map);
         //this.game.screen.drawSprite(this.floor);
-        this.game.screen.drawSprite(this.bull);
+        this.game.screen.drawSprite(this.hero);
         super.render(time);
     }
 }
