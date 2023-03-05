@@ -2,6 +2,8 @@ import { Screen } from "./screen";
 import { Loading } from "./scenes/loding";
 import { Menu } from "./scenes/menu";
 import { Scene } from "./scene";
+import { ControlState } from "./control-state";
+import { GameLevel } from "./scenes/game-level";
 
 export class Game {
     constructor({width = 1000, height = 1000} = {}){
@@ -12,9 +14,11 @@ export class Game {
             tiles: 'img/scene_1.png',
             title: "img/title.png"
         });
+        this.control = new ControlState();
         this.scenes = {
             loading: new Loading(this),
-            menu: new Menu(this)
+            menu: new Menu(this),
+            gameLevel: new GameLevel(this)
         };
         this.currentScene = this.scenes.loading;
         this.currentScene.init();
@@ -25,6 +29,8 @@ export class Game {
             case Scene.LOADED:
                 return this.scenes.menu;
                 break;
+            case Scene.START_GAME:
+                return this.scenes.gameLevel;
 
             default:
                 return this.scenes.menu;
